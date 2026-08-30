@@ -3,53 +3,412 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ANIME SYSTEM</title>
+
+<title>GREATESTGCOAT // ANIME SYSTEM</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#030303;color:#00ff88;font-family:monospace;min-height:100vh;padding:22px;overflow:hidden}
-#terminal{font-size:16px;line-height:1.65;text-shadow:0 0 8px #00ff88}
-.cursor{display:inline-block;width:9px;height:18px;background:#00ff88;vertical-align:-3px;animation:blink .7s infinite}
-@keyframes blink{50%{opacity:0}}
-.glitch{animation:glitch .15s 2}
-@keyframes glitch{0%,100%{transform:translateX(0)}50%{transform:translateX(3px)}}
+*{
+    box-sizing:border-box;
+}
+
+html,body{
+    margin:0;
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    background:
+        radial-gradient(circle at 50% 20%, rgba(0,255,136,.07), transparent 35%),
+        #030303;
+    color:#00ff88;
+    font-family:monospace;
+    padding:22px;
+    overflow-x:hidden;
+}
+
+/* Scanline effect */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background:repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,.018) 0px,
+        rgba(255,255,255,.018) 1px,
+        transparent 1px,
+        transparent 4px
+    );
+    z-index:10;
+}
+
+/* Main terminal */
+#terminal{
+    max-width:850px;
+    margin:auto;
+    font-size:15px;
+    line-height:1.7;
+    text-shadow:0 0 8px rgba(0,255,136,.65);
+}
+
+/* Text colors */
+.system{
+    color:#00ff88;
+}
+
+.welcome{
+    color:#6ee7ff;
+    font-size:20px;
+    font-weight:bold;
+    text-shadow:0 0 12px rgba(110,231,255,.7);
+}
+
+.creator{
+    color:#d0d0d0;
+}
+
+.name{
+    color:#b56cff;
+    font-size:18px;
+    font-weight:bold;
+    text-shadow:0 0 12px rgba(181,108,255,.7);
+}
+
+.highlight{
+    color:#ff4d6d;
+}
+
+.muted{
+    color:#888;
+}
+
+/* GIF boxes */
+.gif-box{
+    display:flex;
+    justify-content:center;
+    margin:12px 0 18px;
+}
+
+.gif-welcome{
+    width:100px;
+    height:100px;
+    object-fit:contain;
+    border:1px solid rgba(0,255,136,.35);
+    box-shadow:
+        0 0 10px rgba(0,255,136,.25),
+        0 0 30px rgba(0,255,136,.08);
+}
+
+.creator-section{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:16px;
+    margin:15px 0;
+}
+
+.creator-gif{
+    width:80px;
+    height:120px;
+    object-fit:contain;
+    border:1px solid rgba(181,108,255,.35);
+    box-shadow:
+        0 0 12px rgba(181,108,255,.3),
+        0 0 30px rgba(181,108,255,.08);
+}
+
+/* Domain box */
+.domain{
+    margin:20px auto;
+    max-width:430px;
+    text-align:center;
+    color:#00ff88;
+    border:1px solid rgba(0,255,136,.35);
+    padding:10px;
+    box-shadow:
+        inset 0 0 15px rgba(0,255,136,.04),
+        0 0 15px rgba(0,255,136,.08);
+}
+
+/* Cursor */
+.cursor{
+    display:inline-block;
+    width:9px;
+    height:18px;
+    background:#00ff88;
+    vertical-align:-3px;
+    animation:blink .7s infinite;
+}
+
+@keyframes blink{
+    50%{
+        opacity:0;
+    }
+}
+
+/* Glitch */
+.glitch{
+    animation:glitch .15s 2;
+}
+
+@keyframes glitch{
+    0%,100%{
+        transform:translateX(0);
+    }
+
+    50%{
+        transform:translateX(3px);
+    }
+}
+
+/* Mobile */
+@media(max-width:600px){
+    body{
+        padding:16px;
+    }
+
+    #terminal{
+        font-size:13px;
+    }
+
+    .welcome{
+        font-size:17px;
+    }
+
+    .creator-section{
+        gap:10px;
+    }
+
+    .creator-gif{
+        width:65px;
+        height:100px;
+    }
+}
 </style>
 </head>
+
 <body>
+
 <div id="terminal"></div>
+
 <script>
-const lines=[
-"[ SYSTEM BOOTING... ]",
-">> Connecting to ANIME NETWORK...",
-">> Loading cursed energy...",
-">> Initializing domain expansion...",
-">> LIMITER: REMOVED",
-">> POWER LEVEL: ???",
-">> SYSTEM STATUS: AWAKENED",
-"",
-"████████████████████████████",
-"       ANIME MODE: ON",
-"████████████████████████████",
-"",
-">>> YOU HAVE ENTERED THE DOMAIN."
+
+/* =========================================
+   GIF FILE NAMES
+   Upload both GIFs to the SAME folder
+   as index.html in GitHub
+========================================= */
+
+const welcomeGif = "tenor_gif1061588063360396008.gif";
+const creatorGif = "tenor_gif4181000240737507572.gif";
+
+
+const lines = [
+
+    `<span class="system">[ SYSTEM BOOTING... ]</span>`,
+
+    `<span class="system">>> Connecting to ANIME NETWORK...</span>`,
+
+    `<span class="system">>> Loading cursed energy...</span>`,
+
+    `<span class="system">>> Initializing domain expansion...</span>`,
+
+    `<span class="system">>> LIMITER: REMOVED</span>`,
+
+    `<span class="system">>> POWER LEVEL: ???</span>`,
+
+    `<span class="system">>> SYSTEM STATUS: AWAKENED</span>`,
+
+    ``,
+
+    `<span class="welcome">WELCOME, GREATESTGCOAT MEMBERS</span>`,
+
+    `GIF_WELCOME`,
+
+    `<span class="system">[ ACCESS GRANTED ✓ ]</span>`,
+
+    ``,
+
+    `<span class="creator">THIS PAGE WAS CREATED BY</span>`,
+
+    `<span class="name">KSHITIZ</span>`,
+
+    `GIF_CREATOR`,
+
+    `<span class="creator">AKA <span class="name">MIMO'S LOVERBOI 🔥</span></span>`,
+
+    ``,
+
+    `<span class="muted">BUILT BY A MEMBER.</span>`,
+
+    `<span class="muted">FOR THE MEMBERS.</span>`,
+
+    ``,
+
+    `DOMAIN`,
+
+    `<span class="highlight">>>> ENTER AT YOUR OWN RISK.</span>`
+
 ];
-const terminal=document.getElementById("terminal");
-let i=0;
-function typeLine(){
- if(i>=lines.length){
-   terminal.lastElementChild.innerHTML += '<span class="cursor"></span>';
-   return;
- }
- const line=document.createElement("div");
- terminal.appendChild(line);
- const text=lines[i++];
- let j=0;
- function type(){
-   if(j<text.length){line.textContent+=text[j++];setTimeout(type,30);}
-   else {setTimeout(typeLine,220);}
- }
- type();
+
+
+const terminal = document.getElementById("terminal");
+
+let i = 0;
+
+
+/* Create GIF */
+function createGif(src, className){
+
+    const wrapper = document.createElement("div");
+
+    wrapper.className = "gif-box";
+
+    wrapper.innerHTML =
+        `<img src="${src}" class="${className}" alt="Anime GIF">`;
+
+    terminal.appendChild(wrapper);
 }
+
+
+/* Create domain */
+function createDomain(){
+
+    const box = document.createElement("div");
+
+    box.className = "domain";
+
+    box.innerHTML = `
+        ████████████████████████████<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DOMAIN ACTIVE<br>
+        ████████████████████████████
+    `;
+
+    terminal.appendChild(box);
+}
+
+
+/* Typing system */
+function typeLine(){
+
+    if(i >= lines.length){
+
+        const last = terminal.lastElementChild;
+
+        if(last){
+
+            last.innerHTML +=
+                '<span class="cursor"></span>';
+
+        }
+
+        return;
+    }
+
+
+    const content = lines[i++];
+
+    /* Welcome GIF */
+    if(content === "GIF_WELCOME"){
+
+        createGif(
+            welcomeGif,
+            "gif-welcome"
+        );
+
+        setTimeout(typeLine,350);
+
+        return;
+    }
+
+
+    /* Creator GIF */
+    if(content === "GIF_CREATOR"){
+
+        createGif(
+            creatorGif,
+            "creator-gif"
+        );
+
+        setTimeout(typeLine,350);
+
+        return;
+    }
+
+
+    /* Domain */
+    if(content === "DOMAIN"){
+
+        createDomain();
+
+        setTimeout(typeLine,350);
+
+        return;
+    }
+
+
+    const line = document.createElement("div");
+
+    terminal.appendChild(line);
+
+
+    /*
+       Empty line
+    */
+    if(content === ""){
+
+        line.innerHTML = "&nbsp;";
+
+        setTimeout(typeLine,180);
+
+        return;
+    }
+
+
+    /*
+       Type HTML while preserving tags
+    */
+    let j = 0;
+
+    const temp = document.createElement("div");
+
+    temp.innerHTML = content;
+
+    const plainText = temp.textContent;
+
+
+    function type(){
+
+        if(j < plainText.length){
+
+            /*
+              Re-render progressively.
+              Once finished, restore original HTML.
+            */
+
+            line.textContent += plainText[j++];
+
+            setTimeout(type,28);
+
+        }else{
+
+            line.innerHTML = content;
+
+            setTimeout(typeLine,220);
+
+        }
+
+    }
+
+    type();
+
+}
+
+
 typeLine();
+
 </script>
+
 </body>
 </html>
