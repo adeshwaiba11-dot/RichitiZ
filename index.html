@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANIME SYSTEM</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#030303;color:#00ff88;font-family:monospace;min-height:100vh;padding:22px;overflow:hidden}
+#terminal{font-size:16px;line-height:1.65;text-shadow:0 0 8px #00ff88}
+.cursor{display:inline-block;width:9px;height:18px;background:#00ff88;vertical-align:-3px;animation:blink .7s infinite}
+@keyframes blink{50%{opacity:0}}
+.glitch{animation:glitch .15s 2}
+@keyframes glitch{0%,100%{transform:translateX(0)}50%{transform:translateX(3px)}}
+</style>
+</head>
+<body>
+<div id="terminal"></div>
+<script>
+const lines=[
+"[ SYSTEM BOOTING... ]",
+">> Connecting to ANIME NETWORK...",
+">> Loading cursed energy...",
+">> Initializing domain expansion...",
+">> LIMITER: REMOVED",
+">> POWER LEVEL: ???",
+">> SYSTEM STATUS: AWAKENED",
+"",
+"████████████████████████████",
+"       ANIME MODE: ON",
+"████████████████████████████",
+"",
+">>> YOU HAVE ENTERED THE DOMAIN."
+];
+const terminal=document.getElementById("terminal");
+let i=0;
+function typeLine(){
+ if(i>=lines.length){
+   terminal.lastElementChild.innerHTML += '<span class="cursor"></span>';
+   return;
+ }
+ const line=document.createElement("div");
+ terminal.appendChild(line);
+ const text=lines[i++];
+ let j=0;
+ function type(){
+   if(j<text.length){line.textContent+=text[j++];setTimeout(type,30);}
+   else {setTimeout(typeLine,220);}
+ }
+ type();
+}
+typeLine();
+</script>
+</body>
+</html>
